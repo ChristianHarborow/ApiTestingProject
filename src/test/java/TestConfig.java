@@ -1,5 +1,3 @@
-package testingProject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -9,7 +7,7 @@ public class TestConfig {
 
     // Read from the config.properties file and store in the properties field
     static {
-        try (InputStream inputStream = AppConfig.class
+        try (InputStream inputStream = TestConfig.class
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
             if (inputStream != null) {
