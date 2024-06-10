@@ -22,4 +22,16 @@ public class Utils {
                 .setBody(commentBody)
                 .build();
     }
+
+    public static RequestSpecification postRequestSpecForUserSadPath(String baseUri, String path, String token, JSONArray commentBody) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .addHeaders(Map.of(
+                        "api_key", token
+                ))
+                .setContentType(ContentType.JSON)
+                .setBody(commentBody)
+                .build();
+    }
 }
