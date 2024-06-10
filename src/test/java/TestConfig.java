@@ -1,0 +1,32 @@
+package testingProject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class TestConfig {
+    private static final Properties properties = new Properties();
+
+    // Read from the config.properties file and store in the properties field
+    static {
+        try (InputStream inputStream = AppConfig.class
+                .getClassLoader()
+                .getResourceAsStream("config.properties")) {
+            if (inputStream != null) {
+                properties.load(inputStream);
+            } else {
+                throw new IOException("Unable to find config.properties");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getBaseUri() {
+        return properties.getProperty("api_url");
+    }
+
+    public static String getAPIKey() {
+        return properties.getProperty("api_key");
+    }
+}
