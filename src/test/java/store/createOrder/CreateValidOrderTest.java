@@ -40,7 +40,7 @@ public class CreateValidOrderTest {
     @AfterAll
     public static void afterAll() {
         response = RestAssured
-                .given(Utils.getDeleteOrderRequestSpec("42"))
+                .given(Utils.getSpecificOrderRequestSpec("42"))
                 .when()
                     .delete()
                 .thenReturn();
