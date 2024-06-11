@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Utils {
     private static final String CREATE_ORDER = "/store/order";
-    private static final String DELETE_ORDER = "/store/order/{id}";
+    private static final String SPECIFIC_ORDER = "/store/order/{id}";
 
     private static final Map<String, String> HEADERS = Map.of(
             "Content-Type", "application/json",
@@ -24,10 +24,10 @@ public class Utils {
                 .build();
     }
 
-    public static RequestSpecification getDeleteOrderRequestSpec(String id) {
+    public static RequestSpecification getSpecificOrderRequestSpec(String id) {
         return new RequestSpecBuilder()
                 .setBaseUri(TestConfig.getBaseUri())
-                .setBasePath(DELETE_ORDER)
+                .setBasePath(SPECIFIC_ORDER)
                 .addPathParams(Map.of("id", id))
                 .addHeaders(HEADERS)
                 .build();

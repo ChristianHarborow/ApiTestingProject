@@ -36,7 +36,7 @@ public class CreateOrderWithQuantityLessThanOneTest {
     @AfterAll
     public static void afterAll() {
         RestAssured
-                .given(Utils.getDeleteOrderRequestSpec("60"))
+                .given(Utils.getSpecificOrderRequestSpec("60"))
                 .when()
                 .delete()
                 .thenReturn();

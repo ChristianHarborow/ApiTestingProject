@@ -36,7 +36,7 @@ public class CreateOrderWithNonExistentPetIdTest {
     @AfterAll
     public static void afterAll() {
         RestAssured
-            .given(Utils.getDeleteOrderRequestSpec("50"))
+            .given(Utils.getSpecificOrderRequestSpec("50"))
             .when()
                 .delete()
             .thenReturn();
