@@ -1,3 +1,5 @@
+package user.loginlogout;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.MatcherAssert;
@@ -6,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import config.TestConfig;
+import user.Utils;
 
 public class UserLogInHappyPathTest {
 

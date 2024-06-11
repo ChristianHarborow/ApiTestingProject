@@ -1,3 +1,5 @@
+package user;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
