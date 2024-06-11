@@ -29,4 +29,10 @@ public class PostUsersAsListSadPathTests {
     public void validStatusCode() {
         MatcherAssert.assertThat(response.getStatusCode(), Matchers.is(400));
     }
+
+    @Test
+    @DisplayName("Post an empty list returns error message")
+    public void errorMessageWhenEmptyBodyPosted() {
+        MatcherAssert.assertThat(response.jsonPath().getString("message"), Matchers.is("Input error: unable to convert input to io.swagger.petstore.model.User[]"));
+    }
 }
