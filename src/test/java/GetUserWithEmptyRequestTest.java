@@ -34,8 +34,8 @@ public class GetUserWithEmptyRequestTest {
     }
 
     @Test
-    @DisplayName("requesting info for non-existent user returns response with status code 404")
-    void requestingNonExistentUser_returns404Status() {
+    @DisplayName("requesting info for non-existent user returns response with status code 400")
+    void requestingNonExistentUser_returns400Status() {
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));
     }
 }

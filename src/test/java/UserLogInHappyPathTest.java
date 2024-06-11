@@ -20,7 +20,7 @@ public class UserLogInHappyPathTest {
     @BeforeAll
     public static void beforeAll() {
         response = RestAssured
-                .given(Utils.getUser(BASE_URI, PATH, KEY, USERNAME, PASSWORD))
+                .given(Utils.getUserRequestSpec(BASE_URI, PATH, KEY, USERNAME, PASSWORD))
                 .when()
                 .get()
                 .thenReturn();
