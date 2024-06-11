@@ -30,4 +30,17 @@ public class Utils {
                 .setBody(users)
                 .build();
     }
+
+    public static RequestSpecification getUser(String baseUri, String path, String token, String username, String password) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .addHeaders(Map.of(
+                        "api_key", token,
+                        "Content-Type", "application/json"
+                ))
+                .addQueryParam("username", username)
+                .addQueryParam("password", password)
+                .build();
+    }
 }
