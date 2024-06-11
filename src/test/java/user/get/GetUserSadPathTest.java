@@ -1,5 +1,6 @@
+package user.get;
+
 import config.TestConfig;
-import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pojos.User;
+import user.UserUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;

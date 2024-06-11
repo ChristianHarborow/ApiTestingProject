@@ -1,5 +1,6 @@
+package user.get;
+
 import config.TestConfig;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -7,8 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
-
-import java.util.Map;
+import user.UserUtils;
 
 public class GetUserHappyPathTest {
     private static final String BASE_URI = TestConfig.getBaseUri();

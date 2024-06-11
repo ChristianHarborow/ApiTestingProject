@@ -1,3 +1,5 @@
+package user.update;
+
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pojos.User;
+import user.UserUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -308,6 +311,6 @@ public class UpdateUser3_5_2Test {
     @Test
     @DisplayName("Given data for a user with missing phone number, attempting to update theUser should not work")
     void GivenInvalidData_UpdateUserDoesntUpdate(){
-        MatcherAssert.assertThat(userMock.getPhone(), Matchers.notNullValue());
+        MatcherAssert.assertThat(user.getPhone(), Matchers.notNullValue());
     }
 }
