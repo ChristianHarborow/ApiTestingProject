@@ -18,4 +18,4 @@ jobs:
           distribution: 'adopt'
       - name: Build and test with Maven
         run: mvn -B package --file pom.xml
-        working-directory: ApiTestingProject
+        working-directory: .
