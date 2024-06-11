@@ -32,9 +32,9 @@ public class DeleteExistingOrderTest {
         Map<String, Object> body = Map.of(
                 "id", 1,
                 "petId", 1,
-                "quantity", 1,
+                "quantity", 100,
                 "shipDate", "2024-07-01T10:00:00.000+00:00",
-                "status", "approved",
+                "status", "placed",
                 "complete", true
         );
         response = RestAssured
