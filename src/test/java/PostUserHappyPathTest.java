@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
 
-public class Scenario3_1_1 {
+public class PostUserHappyPathTest {
 
     private static Response response;
     private static User user;

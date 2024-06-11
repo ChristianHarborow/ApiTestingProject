@@ -1,37 +1,33 @@
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.util.Map;
 
 public class Utils {
 
-    public static RequestSpecification postRequestSpecForUser(String baseUri, String path, String token, JSONObject commentBody) {
+    public static RequestSpecification postRequestSpecForUser(String baseUri, String path, String token, JSONObject user) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
                 .addHeaders(Map.of(
-                        "api_key", token
+                        "api_key", token,
+                        "Content-Type", "application/json"
                 ))
-                .setContentType(ContentType.JSON)
-                .setBody(commentBody)
+                .setBody(user)
                 .build();
     }
 
-    public static RequestSpecification postRequestSpecForUserSadPath(String baseUri, String path, String token, JSONArray commentBody) {
+    public static RequestSpecification postRequestSpecForUserList(String baseUri, String path, String token, JSONObject[] users) {
+
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
                 .addHeaders(Map.of(
-                        "api_key", token
+                        "api_key", token,
+                        "Content-Type", "application/json"
                 ))
-                .setContentType(ContentType.JSON)
-                .setBody(commentBody)
+                .setBody(users)
                 .build();
     }
 }
