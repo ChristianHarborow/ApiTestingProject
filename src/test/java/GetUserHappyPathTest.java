@@ -9,7 +9,7 @@ import pojos.User;
 
 import java.util.Map;
 
-public class Scenario3_4_1 {
+public class GetUserHappyPathTest {
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String KEY = TestConfig.getAPIKey();
 
