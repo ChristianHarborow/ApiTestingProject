@@ -308,6 +308,6 @@ public class UpdateUser3_5_2Test {
     @Test
     @DisplayName("Given data for a user with missing phone number, attempting to update theUser should not work")
     void GivenInvalidData_UpdateUserDoesntUpdate(){
-        MatcherAssert.assertThat(user.getPhone(), Matchers.notNullValue());
+        MatcherAssert.assertThat(userMock.getPhone(), Matchers.notNullValue());
     }
 }
