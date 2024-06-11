@@ -25,7 +25,6 @@ public class UserLoginSadPath {
                 .when()
                 .get()
                 .thenReturn();
-
     }
 
     @Test
