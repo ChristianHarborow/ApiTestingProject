@@ -19,7 +19,7 @@ public class PostUsersAsListSadPathTests {
     public static void beforeAll() {
        response = RestAssured.given()
                .header("Content-Type", "application/json")
-               .body("{}")
+               .body("[]")
                .post(BASE_URI + PATH)
                .thenReturn();
     }
@@ -33,6 +33,6 @@ public class PostUsersAsListSadPathTests {
     @Test
     @DisplayName("Post an empty list returns error message")
     public void errorMessageWhenEmptyBodyPosted() {
-        MatcherAssert.assertThat(response.jsonPath().getString("message"), Matchers.is("Input error: unable to convert input to io.swagger.petstore.model.User[]"));
+        MatcherAssert.assertThat(response.asString(), Matchers.is("No User provided. Try again?"));
     }
 }
