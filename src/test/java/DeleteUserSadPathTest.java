@@ -22,7 +22,7 @@ public class DeleteUserSadPathTest {
     }
 
     @Test
-    @DisplayName("Status code is 404 when not given the correct path")
+    @DisplayName("Status code is 400 when given empty username")
     public void validStatusCode() {
         Response response = RestAssured
                 .given(Utils.deleteUserRequestSpec(
@@ -32,6 +32,6 @@ public class DeleteUserSadPathTest {
                 ))
                 .when()
                 .delete();
-        MatcherAssert.assertThat(response.getStatusCode(), Matchers.is(404));
+        MatcherAssert.assertThat(response.getStatusCode(), Matchers.is(400));
     }
 }

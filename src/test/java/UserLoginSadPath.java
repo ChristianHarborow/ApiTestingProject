@@ -12,14 +12,13 @@ public class UserLoginSadPath {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = "/user/login";
-    private static final String KEY = TestConfig.getAPIKey();
     private static final String USERNAME = "";
     private static final String PASSWORD = "";
 
     @BeforeAll
     public static void beforeAll() {
         response = RestAssured
-                .given(Utils.getUserRequestSpec(BASE_URI, PATH, KEY, USERNAME, PASSWORD))
+                .given(Utils.getUserRequestSpec(BASE_URI, PATH, USERNAME, PASSWORD))
                 .when()
                 .get()
                 .thenReturn();
