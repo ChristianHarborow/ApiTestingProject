@@ -31,7 +31,7 @@ public class Utils {
                 .build();
     }
 
-    public static RequestSpecification getUser(String baseUri, String path, String token, String username, String password) {
+    public static RequestSpecification getUserRequestSpec(String baseUri, String path, String token, String username, String password) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
@@ -41,6 +41,14 @@ public class Utils {
                 ))
                 .addQueryParam("username", username)
                 .addQueryParam("password", password)
+                .build();
+    }
+
+    public static RequestSpecification deleteUserRequestSpec(String baseUri, String path, String username) {
+        return new RequestSpecBuilder()
+                .setBaseUri(baseUri)
+                .setBasePath(path)
+                .addPathParams(Map.of("username", username))
                 .build();
     }
 }
