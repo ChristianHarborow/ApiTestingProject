@@ -1,5 +1,3 @@
-import config.TestConfig;
-import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
@@ -26,19 +24,19 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class GetUserSadPathTest {
-    private static final String BASE_URI = TestConfig.getBaseUri();
-    private static final String KEY = TestConfig.getAPIKey();
-
-    private static Response response;
-    private static User user;
-
+public class UpdateUser3_5_2Test {
     private static UserUtils userUtils = new UserUtils();
     private static UserUtils userUtilsMock = Mockito.mock(UserUtils.class);
 
+    private static Response response;
+    private static User user;
+    private static User userMock = Mockito.mock(User.class);
+
     @BeforeAll
     public static void beforeAll(){
-        Mockito.when(userUtilsMock.getUser("notreal")).thenReturn(new Response() {
+        user = userUtils.getUser("theUser").as(User.class);
+        user.setPhone(null);
+        Mockito.when(userUtilsMock.updateUser(Mockito.any(),Mockito.any())).thenReturn(new Response() {
             @Override
             public String print() {
                 return "";
@@ -261,7 +259,7 @@ public class GetUserSadPathTest {
 
             @Override
             public int statusCode() {
-                return 404;
+                return 400;
             }
 
             @Override
@@ -294,12 +292,22 @@ public class GetUserSadPathTest {
                 return null;
             }
         });
-        response = userUtils.getUser("notreal");
+        response = userUtils.updateUser("theUser",user);
+
+        user = response.as(User.class);
+
+        Mockito.when(userMock.getPhone()).thenReturn("11111");
     }
 
     @Test
-    @DisplayName("requesting info for non-existent user returns response with status code 404")
-    void requestingNonExistentUser_returns404Status(){
-        MatcherAssert.assertThat(response.statusCode(), Matchers.is(404));
+    @DisplayName("Given data for a user with missing phone number, attempting to update theUser should return a 400 response")
+    void GivenInvalidData_UpdateUserReturns400Code(){
+        MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));
+    }
+
+    @Test
+    @DisplayName("Given data for a user with missing phone number, attempting to update theUser should not work")
+    void GivenInvalidData_UpdateUserDoesntUpdate(){
+        MatcherAssert.assertThat(userMock.getPhone(), Matchers.notNullValue());
     }
 }

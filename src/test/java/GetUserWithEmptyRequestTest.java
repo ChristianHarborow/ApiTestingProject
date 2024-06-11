@@ -16,21 +16,11 @@ public class GetUserWithEmptyRequestTest {
 
     private static Response response;
 
+    private static UserUtils userUtils = new UserUtils();
+
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given()
-                .baseUri(BASE_URI)
-                .headers(Map.of(
-                        "api_key", KEY
-                ))
-                .basePath("/user/{username}")
-                .pathParams(Map.of(
-                        "username", ""
-                ))
-                .when()
-                .get()
-                .thenReturn();
+        response = userUtils.getUser("");
     }
 
     @Test
