@@ -7,6 +7,8 @@ import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -16,24 +18,22 @@ public class UpdateInformationForInvalidPetTest {
 
     @BeforeAll
     public static void beforeAll(){
-        String petJson = "{\n" +
-                "  \"id\": 123,\n" +
-                "  \"name\": \"UpdatedPetName\",\n" +
-                "  \"category\": {\n" +
-                "    \"id\": 1,\n" +
-                "    \"name\": \"Dogs\"\n" +
-                "  },\n" +
-                "  \"photoUrls\": [\n" +
-                "    \"string\"\n" +
-                "  ],\n" +
-                "  \"tags\": [\n" +
-                "    {\n" +
-                "      \"id\": 0,\n" +
-                "      \"name\": \"string\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"status\": \"available\"\n" +
-                "}";
+        Map<String, Object> petJson = Map.of(
+                "id", 123,
+                "name", "UpdatedPetName",
+                "category", Map.of(
+                        "id", 1,
+                        "name", "Dogs"
+                ),
+                "photoUrls", new String[]{"string"},
+                "tags", new Map[]{
+                        Map.of(
+                                "id", 0,
+                                "name", "string"
+                        )
+                },
+                "status", "available"
+        );
         response = RestAssured
                 .given()
                 .baseUri(TestConfig.getBaseUri())

@@ -1,3 +1,5 @@
+package user.create;
+
 import config.TestConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
+import user.Utils;
 
 public class PostUsersAsListsHappyPathTest {
     private static Response response;
@@ -43,7 +46,7 @@ public class PostUsersAsListsHappyPathTest {
         JSONObject[] requestBody = {user1, user2};
 
 
-        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, API_KEY, requestBody);
+        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, requestBody);
 
         response = RestAssured.given(requestSpec)
                 .when()
