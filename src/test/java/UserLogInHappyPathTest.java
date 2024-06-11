@@ -20,7 +20,7 @@ public class UserLogInHappyPathTest {
     @BeforeAll
     public static void beforeAll() {
         response = RestAssured
-                .given(Utils.getUserRequestSpec(BASE_URI, PATH, KEY, USERNAME, PASSWORD))
+                .given(Utils.getUserRequestSpec(BASE_URI, PATH, USERNAME, PASSWORD))
                 .when()
                 .get()
                 .thenReturn();
@@ -30,5 +30,11 @@ public class UserLogInHappyPathTest {
     @DisplayName("correct response code when logging in user")
     void correctResponseCode_UserLogIn(){
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(200));
+    }
+
+    @Test
+    @DisplayName("Message: Logged in user session")
+    void successMessage_UserLogIn(){
+        MatcherAssert.assertThat(response.asString(), Matchers.containsString("Logged in user session:"));
     }
 }

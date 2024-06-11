@@ -43,7 +43,7 @@ public class PostUsersAsListsHappyPathTest {
         JSONObject[] requestBody = {user1, user2};
 
 
-        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, API_KEY, requestBody);
+        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, requestBody);
 
         response = RestAssured.given(requestSpec)
                 .when()

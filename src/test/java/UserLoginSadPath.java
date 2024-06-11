@@ -19,7 +19,7 @@ public class UserLoginSadPath {
     @BeforeAll
     public static void beforeAll() {
         response = RestAssured
-                .given(Utils.getUserRequestSpec(BASE_URI, PATH, KEY, USERNAME, PASSWORD))
+                .given(Utils.getUserRequestSpec(BASE_URI, PATH, USERNAME, PASSWORD))
                 .when()
                 .get()
                 .thenReturn();

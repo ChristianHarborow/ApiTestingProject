@@ -12,12 +12,10 @@ public class PostUsersAsListSadPathTests {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = "/user/createWithList";
-    private static final String API_KEY = TestConfig.getAPIKey();
 
     @BeforeAll
     public static void beforeAll() {
        response = RestAssured.given()
-               .header("api_key", API_KEY)
                .header("Content-Type", "application/json")
                .body("{}")
                .post(BASE_URI + PATH)
