@@ -43,9 +43,7 @@ public class AddNewPetTest {
         petObj.put("id", 5555);
         petObj.put("name", "Spider Monkey");
         petObj.put("status", "Available");
-        //petObj.put("category", category.toString());
-        //petObj.put("tags", "");
-        //petObj.put("photoUrls", "");
+
 
         RequestSpecification reqSpec = new RequestSpecBuilder().setBody(petObj).build();
 
@@ -56,15 +54,13 @@ public class AddNewPetTest {
                         "api_key", KEY,
                         "Content-Type", "application/json"
                 ))
-                .basePath("/pet") //?tags=tag1&tags=tag2
-                //.queryParam("tags", new String[]{"tag1, tag2"})
+                .basePath("/pet")
                 .when()
                 .post()
                 .thenReturn();
         System.out.println(response);
         var result = response.as(JSONObject.class);
         System.out.println(result);
-       // pet = result[0];
     }
 
     @Test
