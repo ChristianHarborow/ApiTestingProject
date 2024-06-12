@@ -10,9 +10,17 @@
 
 ## Task
 
-For this project we were tasked with testing [the PetStore API](https://petstore3.swagger.io/), specifically testing all the data in the response for at least three different endpoints. The endpoints are `pets`, `store`, and `user`
+For this project we were tasked with testing [the PetStore API](https://petstore3.swagger.io/), specifically testing all the data in the response for at least three different endpoints.
 
 This project uses RestAssured for interacting with the API, and JUnit and Hamcrest for testing.
+
+## File Structure
+
+Tests can be found for the following endpoints:
+
+- pets `src/test/java/pets`
+- store `src/test/java/store`
+- user `src/test/java/user`
 
 ## Setup/Usage Instructions
 
@@ -32,4 +40,8 @@ api_key=<your api key>
 api_url=<base url>
 ```
 
-and put it in `src/test/resources`. The api_key can be generated from an online api generator such as `https://codepen.io/corenominal/pen/rxOmMJ`.
+and put it in `src/test/resources`. The api_key can be generated from an online api generator such as https://codepen.io/corenominal/pen/rxOmMJ.
+
+## Installing Docker
+
+To get the Petstore API to work consistently across different environments, you can require to containerise the application. Here is the walkthrough for setting this up https://github.com/swagger-api/swagger-petstore

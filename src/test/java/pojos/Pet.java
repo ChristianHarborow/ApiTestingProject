@@ -1,7 +1,9 @@
 package pojos;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties
 public class Pet{
 	private List<String> photoUrls;
 	private String name;
@@ -9,6 +11,7 @@ public class Pet{
 	private Category category;
 	private List<TagsItem> tags;
 	private String status;
+
 
 	public void setPhotoUrls(List<String> photoUrls){
 		this.photoUrls = photoUrls;
