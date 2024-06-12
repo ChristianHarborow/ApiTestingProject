@@ -22,6 +22,12 @@ Tests can be found for the following endpoints:
 - store `src/test/java/store`
 - user `src/test/java/user`
 
+## Test Structure
+
+Below is the typical structure of a test class
+
+![class-diagram](class_diagram.PNG)
+
 ## Setup/Usage Instructions
 
 - Fork the repo
