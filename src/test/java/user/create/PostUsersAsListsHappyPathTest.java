@@ -1,3 +1,5 @@
+package user.create;
+
 import config.TestConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
+import user.Utils;
 
 public class PostUsersAsListsHappyPathTest {
     private static Response response;
@@ -16,7 +19,6 @@ public class PostUsersAsListsHappyPathTest {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = "/user/createWithList";
-    private static final String API_KEY = TestConfig.getAPIKey();
 
     @BeforeAll
     public static void beforeAll() {
@@ -42,8 +44,7 @@ public class PostUsersAsListsHappyPathTest {
 
         JSONObject[] requestBody = {user1, user2};
 
-
-        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, API_KEY, requestBody);
+        RequestSpecification requestSpec = Utils.postRequestSpecForUserList(BASE_URI, PATH, requestBody);
 
         response = RestAssured.given(requestSpec)
                 .when()
@@ -67,7 +68,7 @@ public class PostUsersAsListsHappyPathTest {
 
     @Test
     @DisplayName("Response returns correct user1")
-    public void validateCorrectUser() {
+    public void validateCorrectUser1() {
         MatcherAssert.assertThat(users[0].getId(), Matchers.is(10));
         MatcherAssert.assertThat(users[0].getUsername(), Matchers.is("theUser"));
         MatcherAssert.assertThat(users[0].getFirstName(), Matchers.is("John"));
@@ -75,5 +76,17 @@ public class PostUsersAsListsHappyPathTest {
         MatcherAssert.assertThat(users[0].getEmail(), Matchers.is("john@email.com"));
         MatcherAssert.assertThat(users[0].getPhone(), Matchers.is("12345"));
         MatcherAssert.assertThat(users[0].getUserStatus(), Matchers.is(1));
+    }
+
+    @Test
+    @DisplayName("Response returns correct user2")
+    public void validateCorrectUser2() {
+        MatcherAssert.assertThat(users[1].getId(), Matchers.is(11));
+        MatcherAssert.assertThat(users[1].getUsername(), Matchers.is("theUser123"));
+        MatcherAssert.assertThat(users[1].getFirstName(), Matchers.is("John"));
+        MatcherAssert.assertThat(users[1].getLastName(), Matchers.is("James"));
+        MatcherAssert.assertThat(users[1].getEmail(), Matchers.is("john@email.com"));
+        MatcherAssert.assertThat(users[1].getPhone(), Matchers.is("12345678"));
+        MatcherAssert.assertThat(users[1].getUserStatus(), Matchers.is(1));
     }
 }

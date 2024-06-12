@@ -1,3 +1,5 @@
+package user;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
@@ -18,25 +20,23 @@ public class Utils {
                 .build();
     }
 
-    public static RequestSpecification postRequestSpecForUserList(String baseUri, String path, String token, JSONObject[] users) {
+    public static RequestSpecification postRequestSpecForUserList(String baseUri, String path, JSONObject[] users) {
 
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
                 .addHeaders(Map.of(
-                        "api_key", token,
                         "Content-Type", "application/json"
                 ))
                 .setBody(users)
                 .build();
     }
 
-    public static RequestSpecification getUserRequestSpec(String baseUri, String path, String token, String username, String password) {
+    public static RequestSpecification getUserRequestSpec(String baseUri, String path, String username, String password) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
                 .setBasePath(path)
                 .addHeaders(Map.of(
-                        "api_key", token,
                         "Content-Type", "application/json"
                 ))
                 .addQueryParam("username", username)

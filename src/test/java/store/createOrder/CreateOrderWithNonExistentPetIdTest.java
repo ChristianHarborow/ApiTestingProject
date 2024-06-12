@@ -35,11 +35,12 @@ public class CreateOrderWithNonExistentPetIdTest {
 
     @AfterAll
     public static void afterAll() {
-        RestAssured
+        response = RestAssured
             .given(Utils.getSpecificOrderRequestSpec("50"))
             .when()
                 .delete()
             .thenReturn();
+        assertThat(response.statusCode(), is(200));
     }
 
     @Test

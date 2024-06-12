@@ -1,3 +1,5 @@
+package user.create;
+
 import config.TestConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
+import user.Utils;
 
 public class PostUserHappyPathTest {
 
