@@ -1,3 +1,5 @@
+package pets;
+
 import config.TestConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -39,7 +41,7 @@ public class GetPetsByTag {
     }
 
     @Test
-    @DisplayName("correct response code when requesting data for an existing user")
+    @DisplayName("correct response code when searching by tags")
     void correctResponseCode_requestDataForPetsByTag(){
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(200));
     }
