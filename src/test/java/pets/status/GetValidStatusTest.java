@@ -20,11 +20,10 @@ public class GetValidStatusTest {
 
     @BeforeAll
     public static void setup() {
-        RestAssured.baseURI = TestConfig.getBaseUri();
-
-
+        
         response = RestAssured
                 .given()
+                .baseUri(TestConfig.getBaseUri())
                 .header("x-api-key", TestConfig.getAPIKey())
                 .queryParam("status", "pending")
                 .when()
