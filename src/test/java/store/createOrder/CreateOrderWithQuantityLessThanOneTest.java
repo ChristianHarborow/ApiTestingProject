@@ -35,11 +35,12 @@ public class CreateOrderWithQuantityLessThanOneTest {
 
     @AfterAll
     public static void afterAll() {
-        RestAssured
+        response = RestAssured
                 .given(Utils.getSpecificOrderRequestSpec("60"))
                 .when()
                 .delete()
                 .thenReturn();
+        assertThat(response.statusCode(), is(200));
     }
 
     @Test
