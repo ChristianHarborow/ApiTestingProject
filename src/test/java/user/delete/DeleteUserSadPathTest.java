@@ -31,7 +31,7 @@ public class DeleteUserSadPathTest {
                 .given(Utils.deleteUserRequestSpec(
                         BASE_URI,
                         PATH + "/{username}",
-                        ""
+                        " "
                 ))
                 .when()
                 .delete();
