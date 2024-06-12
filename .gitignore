@@ -119,13 +119,3 @@ fabric.properties
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-/src/test/resources/config.properties
-!/src/test/java/pojos/Category.java
-!/src/test/java/pojos/Category.java
-
-!/src/test/java/pojos/Pet.java
-
-!/src/test/java/pojos/TagsItem.java
