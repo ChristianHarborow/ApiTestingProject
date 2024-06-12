@@ -13,7 +13,7 @@ import pojos.Pet;
 import java.util.List;
 import java.util.Map;
 
-public class GetPetsByTag {
+public class GetPetsByTagTest {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String KEY = TestConfig.getAPIKey();
