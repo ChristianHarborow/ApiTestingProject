@@ -1,3 +1,5 @@
+package user.loginlogout;
+
 import config.TestConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -13,7 +15,6 @@ public class UserLogOut {
 
     private static final String BASE_URI = TestConfig.getBaseUri();
     private static final String PATH = "/user/logout";
-    private static final String KEY = TestConfig.getAPIKey();
 
     @BeforeAll
     public static void beforeAll() {
@@ -30,5 +31,11 @@ public class UserLogOut {
     @DisplayName("correct response code when user logs out")
     void correctResponseCode_userLogOut(){
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(200));
+    }
+
+    @Test
+    @DisplayName("Message: User logged")
+    void confirmationMessage_UserLogOut(){
+        MatcherAssert.assertThat(response.asString(), Matchers.is("User logged out"));
     }
 }
