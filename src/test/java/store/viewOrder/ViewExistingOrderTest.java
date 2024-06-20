@@ -1,15 +1,13 @@
 package store.viewOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.Order;
+import store.OrderBody;
 import store.Utils;
-
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -19,40 +17,22 @@ public class ViewExistingOrderTest {
     private static Order order;
     private static final String ID = "40";
 
-    private static final Map<String, Object> EXISTING_ORDER_BODY = Map.of(
-            "id", 40,
-            "petId", 4,
-            "quantity", 23,
-            "shipDate", "2024-07-01T10:00:00.000+00:00",
-            "status", "approved",
-            "complete", true
-    );
+    private static final OrderBody EXISTING_ORDER_BODY = new OrderBody(
+            40, 4, 23, "2024-07-01T10:00:00.000+00:00");
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getPostOrderRequestSpec(EXISTING_ORDER_BODY))
-                .when()
-                .post()
-                .thenReturn();
+        response = Utils.postOrder(EXISTING_ORDER_BODY);
         assertThat(response.statusCode(), is(200));
 
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec(ID))
-                .when()
-                    .get()
-                .thenReturn();
+        response = Utils.getOrder(ID);
 
         order = response.as(Order.class);
     }
 
     @AfterAll
     public static void afterAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec(ID))
-                .when()
-                .delete()
-                .thenReturn();
+        response = Utils.deleteOrder(ID);
         assertThat(response.statusCode(), is(200));
     }
 
@@ -65,11 +45,11 @@ public class ViewExistingOrderTest {
     @Test
     @DisplayName("Check that sending a get request with an existing id returns the correct order object")
     void checkGetOrderWithExistingId_ReturnsTheCorrectOrderObject() {
-        assertThat(order.getId(), is(40));
-        assertThat(order.getPetId(), is(4));
-        assertThat(order.getQuantity(), is(23));
-        assertThat(order.getShipDate(), is("2024-07-01T10:00:00.000+00:00")); //
-        assertThat(order.getStatus(), is("approved"));
-        assertThat(order.isComplete(), is(true));
+        assertThat(order.getId(), is(EXISTING_ORDER_BODY.id()));
+        assertThat(order.getPetId(), is(EXISTING_ORDER_BODY.petId()));
+        assertThat(order.getQuantity(), is(EXISTING_ORDER_BODY.quantity()));
+        assertThat(order.getShipDate(), is(EXISTING_ORDER_BODY.shipDate())); //
+        assertThat(order.getStatus(), is(EXISTING_ORDER_BODY.status()));
+        assertThat(order.isComplete(), is(EXISTING_ORDER_BODY.complete()));
     }
 }

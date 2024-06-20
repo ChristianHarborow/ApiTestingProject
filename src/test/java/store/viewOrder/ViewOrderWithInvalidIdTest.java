@@ -1,6 +1,5 @@
 package store.viewOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,11 +15,7 @@ public class ViewOrderWithInvalidIdTest {
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec(ID))
-                .when()
-                    .get()
-                .thenReturn();
+        response = Utils.getOrder(ID);
     }
 
     @Test

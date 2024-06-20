@@ -1,12 +1,9 @@
 package store.viewInventory;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.json.simple.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pojos.Order;
 import store.Utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,11 +14,7 @@ public class ViewInventoryWithExistingOrdersTest {
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getInventoryRequestSpec())
-                .when()
-                    .get()
-                .thenReturn();
+        response = Utils.getInventory();
     }
 
     private int getInventoryValueAsInt(String key) {

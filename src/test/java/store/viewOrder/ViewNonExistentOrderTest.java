@@ -1,11 +1,9 @@
 package store.viewOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pojos.Order;
 import store.Utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,11 +15,7 @@ public class ViewNonExistentOrderTest {
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec(ID))
-                .when()
-                    .get()
-                .thenReturn();
+        response = Utils.getOrder(ID);
     }
 
     @Test

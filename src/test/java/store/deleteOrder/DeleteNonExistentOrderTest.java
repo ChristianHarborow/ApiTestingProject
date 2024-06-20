@@ -1,6 +1,5 @@
 package store.deleteOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,11 +15,7 @@ public class DeleteNonExistentOrderTest {
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec(ID))
-                .when()
-                    .delete()
-                .thenReturn();
+        response = Utils.deleteOrder(ID);
     }
 
     @Test

@@ -1,15 +1,13 @@
 package store.createOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.Order;
+import store.OrderBody;
 import store.Utils;
-
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -17,33 +15,18 @@ import static org.hamcrest.Matchers.is;
 public class CreateValidOrderTest {
     private static Response response;
     private static Order order;
-    private static Map<String, Object> body = Map.of(
-            "id", 42,
-            "petId", 1,
-            "quantity", 1,
-            "shipDate", "2024-07-01T10:00:00.000+00:00",
-            "status", "approved",
-            "complete", true
-    );
+    private static OrderBody body = new OrderBody(42, 1, 1, "2024-07-01T10:00:00.000+00:00");
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getPostOrderRequestSpec(body))
-                .when()
-                    .post()
-                .thenReturn();
+        response = Utils.postOrder(body);
 
         order = response.as(Order.class);
     }
 
     @AfterAll
     public static void afterAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec("42"))
-                .when()
-                    .delete()
-                .thenReturn();
+        response = Utils.deleteOrder("42");
         assertThat(response.statusCode(), is(200));
     }
 
@@ -56,11 +39,11 @@ public class CreateValidOrderTest {
     @Test
     @DisplayName("Check that posting a new order returns a order object containing values equal to that of the request body")
     void checkThatPostingNewOrder_ReturnsAnEqualOrderObject() {
-        assertThat(order.getId(), is(body.get("id")));
-        assertThat(order.getPetId(), is(body.get("petId")));
-        assertThat(order.getQuantity(), is(body.get("quantity")));
-        assertThat(order.getShipDate(), is(body.get("shipDate")));
-        assertThat(order.getStatus(), is(body.get("status")));
-        assertThat(order.isComplete(), is(body.get("complete")));
+        assertThat(order.getId(), is(body.id()));
+        assertThat(order.getPetId(), is(body.petId()));
+        assertThat(order.getQuantity(), is(body.quantity()));
+        assertThat(order.getShipDate(), is(body.shipDate()));
+        assertThat(order.getStatus(), is(body.status()));
+        assertThat(order.isComplete(), is(body.complete()));
     }
 }

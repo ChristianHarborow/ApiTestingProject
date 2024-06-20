@@ -1,61 +1,35 @@
 package store.createOrder;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import store.OrderBody;
 import store.Utils;
-
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class CreateOrderWithExistingIdTest {
     private static Response response;
-    private static final Map<String, Object> NEW_ORDER_BODY = Map.of(
-            "id", 1,
-            "petId", 1,
-            "quantity", 1,
-            "shipDate", "2024-07-01T10:00:00.000+00:00",
-            "status", "approved",
-            "complete", true
-    );
+    private static OrderBody NEW_ORDER_BODY = new OrderBody(
+            1, 1, 1, "2024-07-01T10:00:00.000+00:00");
 
     @BeforeAll
     public static void beforeAll() {
-        response = RestAssured
-                .given(Utils.getPostOrderRequestSpec(NEW_ORDER_BODY))
-                .when()
-                    .post()
-                .thenReturn();
+        response = Utils.postOrder(NEW_ORDER_BODY);
     }
 
     @AfterAll
     public static void afterAll() {
-        response = RestAssured
-                .given(Utils.getSpecificOrderRequestSpec("1"))
-                .when()
-                .delete()
-                .thenReturn();
+        response = Utils.deleteOrder("1");
         assertThat(response.statusCode(), is(200));
 
-        Map<String, Object> body = Map.of(
-                "id", 1,
-                "petId", 1,
-                "quantity", 100,
-                "shipDate", "2024-06-11T14:52:47.694+00:00",
-                "status", "placed",
-                "complete", true
-        );
+        OrderBody body = new OrderBody(
+                1, 1, 100, "2024-06-11T14:52:47.694+00:00", "placed");
 
-        response = RestAssured
-                .given(Utils.getPostOrderRequestSpec(body))
-                .when()
-                .post()
-                .thenReturn();
+        response = Utils.postOrder(body);
 
         assertThat(response.statusCode(), is(200));
     }

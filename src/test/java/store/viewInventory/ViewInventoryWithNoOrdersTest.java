@@ -1,6 +1,5 @@
 package store.viewInventory;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,11 +17,7 @@ public class ViewInventoryWithNoOrdersTest {
     public static void beforeAll() {
         assertThat(Utils.deleteDefaultOrders(), is(true));
 
-        response = RestAssured
-                .given(Utils.getInventoryRequestSpec())
-                .when()
-                    .get()
-                .thenReturn();
+        response = Utils.getInventory();
     }
 
     @AfterAll
