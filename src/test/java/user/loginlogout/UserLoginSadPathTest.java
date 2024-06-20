@@ -1,4 +1,4 @@
-package user.get;
+package user.loginlogout;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,18 +9,20 @@ import user.UserUtils;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class GetUserWithEmptyRequestTest {
-
+public class UserLoginSadPathTest {
     private static Response response;
+
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
 
     @BeforeAll
     public static void beforeAll() {
-        response = UserUtils.getUser("");
+        response = UserUtils.loginUser(USERNAME, PASSWORD);
     }
 
     @Test
-    @DisplayName("requesting info for non-existent user returns response with status code 400")
-    void requestingNonExistentUser_returns400Status() {
+    @DisplayName("Logging in user with empty username and password")
+    void correctResponseCode_requestDataWithEmptyUsernameAndPassword(){
         assertThat(response.statusCode(), is(400));
     }
 }
