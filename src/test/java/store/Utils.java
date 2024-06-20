@@ -22,39 +22,61 @@ public class Utils {
             "api_key", TestConfig.getAPIKey()
             );
 
-    public static RequestSpecification getPostOrderRequestSpec(Map<String, Object> body) {
+    private static RequestSpecBuilder getCommonBuilder(String basePath) {
         return new RequestSpecBuilder()
                 .setBaseUri(TestConfig.getBaseUri())
-                .setBasePath(CREATE_ORDER)
-                .addHeaders(HEADERS)
+                .setBasePath(basePath)
+                .addHeaders(HEADERS);
+    }
+
+    public static RequestSpecification getPostOrderRequestSpec(OrderBody body) {
+        return getCommonBuilder(CREATE_ORDER)
                 .setBody(body)
                 .build();
     }
 
     public static RequestSpecification getSpecificOrderRequestSpec(String id) {
-        return new RequestSpecBuilder()
-                .setBaseUri(TestConfig.getBaseUri())
-                .setBasePath(SPECIFIC_ORDER)
+        return getCommonBuilder(SPECIFIC_ORDER)
                 .addPathParams(Map.of("id", id))
-                .addHeaders(HEADERS)
                 .build();
     }
 
     public static RequestSpecification getInventoryRequestSpec() {
-        return new RequestSpecBuilder()
-                .setBaseUri(TestConfig.getBaseUri())
-                .setBasePath(INVENTORY)
-                .addHeaders(HEADERS)
-                .build();
+        return getCommonBuilder(INVENTORY).build();
+    }
+
+    public static Response postOrder(OrderBody body) {
+        return RestAssured
+                .given(Utils.getPostOrderRequestSpec(body))
+                .post()
+                .thenReturn();
+    }
+
+    public static Response deleteOrder(String id) {
+        return RestAssured
+                .given(Utils.getSpecificOrderRequestSpec(id))
+                .delete()
+                .thenReturn();
+    }
+
+    public static Response getOrder(String id) {
+        return RestAssured
+                .given(Utils.getSpecificOrderRequestSpec(id))
+                .get()
+                .thenReturn();
+    }
+
+    public static Response getInventory() {
+        return RestAssured
+                .given(Utils.getInventoryRequestSpec())
+                .get()
+                .thenReturn();
     }
 
     public static boolean deleteDefaultOrders() {
         boolean allDeleted = true;
         for (int i = 1; i <= 3; i++) {
-            Response response = RestAssured
-                    .given(Utils.getSpecificOrderRequestSpec("" + i))
-                    .delete()
-                    .thenReturn();
+            Response response = deleteOrder("" + i);
             allDeleted = allDeleted && response.statusCode() == 200;
         }
         return allDeleted;
@@ -64,18 +86,9 @@ public class Utils {
         boolean allRestored = true;
         Date date = new Date();
         for (int i = 0; i < 3; i++) {
-            Map<String, Object> body = Map.of(
-                    "id", i+1,
-                    "petId", 1,
-                    "quantity", DEFAULT_QUANTITIES.get(i),
-                    "shipDate", date,
-                    "status", DEFAULT_STATUSES.get(i),
-                    "complete", true
-            );
-            Response response = RestAssured
-                    .given(Utils.getPostOrderRequestSpec(body))
-                    .post()
-                    .thenReturn();
+            OrderBody body = new OrderBody(
+                    i+1, 1, DEFAULT_QUANTITIES.get(i), date.toString(), DEFAULT_STATUSES.get(i));
+            Response response = postOrder(body);
             allRestored = allRestored && response.statusCode() == 200;
         }
         return allRestored;
